@@ -1,4 +1,8 @@
 .nav-logo {
-  width: 80px !important;
-  height: 80px !important;
+  width: 50px !important;
+  height: 50px !important;
+}
+
+.navbar-item img {
+  max-height: 5rem;
 }

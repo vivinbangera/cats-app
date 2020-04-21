@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Logo from '../images/cat-logo.jpg';
 
+import './Navbar.css';
+
 const Navbar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const handleBurgerMenuToggle = (event) => {
