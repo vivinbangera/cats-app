@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import Logo from '../images/cat-logo.jpg';
 
 import './Navbar.css';
 
-const Navbar = () => {
+const Navbar = ({ location }) => {
+  console.log(location);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const handleBurgerMenuToggle = (event) => {
+  const handleBurgerMenuToggle = event => {
     event.preventDefault();
-    setIsDrawerOpen((prevState) => !prevState);
+    setIsDrawerOpen(prevState => !prevState);
+  };
+
+  const getActiveRouteClass = path => {
+    return location.pathname === path ? 'is-active' : '';
   };
 
   return (
@@ -33,15 +38,27 @@ const Navbar = () => {
         </a>
       </div>
 
-      <div id="navbarBasicExample" className={`navbar-menu ${isDrawerOpen ? 'is-active' : ''}`}>
+      <div
+        id="navbarBasicExample"
+        className={`navbar-menu ${isDrawerOpen ? 'is-active' : ''}`}
+      >
         <ul className="navbar-start">
-          <li className="navbar-item" onClick={() => setIsDrawerOpen((prevState) => !prevState)}>
+          <li
+            className={'navbar-item is-tab ' + getActiveRouteClass('/')}
+            onClick={() => setIsDrawerOpen(prevState => !prevState)}
+          >
             <NavLink to="/">Home</NavLink>
           </li>
-          <li className="navbar-item" onClick={() => setIsDrawerOpen((prevState) => !prevState)}>
+          <li
+            className={'navbar-item is-tab ' + getActiveRouteClass('/breed')}
+            onClick={() => setIsDrawerOpen(prevState => !prevState)}
+          >
             <NavLink to="/breed">Breed</NavLink>
           </li>
-          <li className="navbar-item" onClick={() => setIsDrawerOpen((prevState) => !prevState)}>
+          <li
+            className={'navbar-item is-tab ' + getActiveRouteClass('/search')}
+            onClick={() => setIsDrawerOpen(prevState => !prevState)}
+          >
             <NavLink to="search">Search</NavLink>
           </li>
         </ul>
@@ -50,4 +67,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default withRouter(Navbar);
