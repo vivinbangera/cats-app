@@ -2,7 +2,7 @@ import React from 'react';
 
 const Pagination = ({ pageCount, pageLimit, currentPage, handleClick }) => {
   let hasEllipses = false;
-  const totalPages = pageCount / pageLimit;
+  const totalPages = Math.ceil(pageCount / pageLimit);
   const pageNumbers = [];
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
