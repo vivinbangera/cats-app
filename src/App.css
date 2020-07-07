@@ -10,3 +10,8 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+nav.pagination button {
+  background-color: #fff;
+  cursor: pointer;
+}

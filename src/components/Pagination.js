@@ -17,52 +17,57 @@ const Pagination = ({ pageCount, pageLimit, currentPage, handleClick }) => {
     ) {
       return (
         <li key={pageNumber}>
-          <a
+          <button
             className={`pagination-link ${activeClass}`}
             onClick={() => {
               handleClick(pageNumber);
             }}
+            aria-label={`Go To Page ${pageNumber}`}
           >
             {pageNumber}
-          </a>
+          </button>
         </li>
       );
     } else if (!hasEllipses) {
       hasEllipses = true;
       return (
-        <li>
+        <li key="ellipses">
           <span className="pagination-ellipsis">&hellip;</span>
         </li>
       );
     }
+    return '';
   });
+
   return (
     <nav
       className="pagination is-centered"
       role="navigation"
       aria-label="pagination"
     >
-      <a
+      <button
         className="pagination-previous"
         disabled={currentPage === 1}
         onClick={() => {
           if (currentPage === 1) return;
           handleClick(currentPage - 1);
         }}
+        aria-label="Go to previous page"
       >
         Previous
-      </a>
-      <a
+      </button>
+      <ul className="pagination-list">{pageCount > 0 && pageItems}</ul>
+      <button
         className="pagination-next"
         disabled={currentPage === totalPages}
         onClick={() => {
           if (currentPage === totalPages) return;
           handleClick(currentPage + 1);
         }}
+        aria-label="Go to next page"
       >
         Next page
-      </a>
-      <ul className="pagination-list">{pageCount > 0 && pageItems}</ul>
+      </button>
     </nav>
   );
 };
