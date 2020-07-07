@@ -1,0 +1,26 @@
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.select {
+  width: 100% !important;
+}
+
+.select select {
+  width: 100%;
+}
+
+.search-results {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between !important;
+}
+
+img.search_result {
+  width: 400px;
+  height: 400px;
+  margin-top: 20px;
+}

@@ -21,13 +21,13 @@ const Home = () => {
   }
   return (
     <div className="container">
-      <img className="column home-image" src={catDetails.url} alt="cat" />
-      <br />
       <div className="control">
         <button className="button is-primary" onClick={fetchRandomCat}>
           Random
         </button>
       </div>
+      <br />
+      <img className="home-image" src={catDetails.url} alt="cat" />
     </div>
   );
 };
