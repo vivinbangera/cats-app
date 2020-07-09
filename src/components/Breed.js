@@ -21,7 +21,6 @@ const Breed = () => {
   ));
 
   const handleSelectChange = (event) => {
-    console.log(event.target.value);
     setSelectedBreed(event.target.value);
   };
 

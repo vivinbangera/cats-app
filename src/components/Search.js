@@ -12,6 +12,7 @@ const Search = () => {
   const [order, setOrder] = useState('Random');
   const [currentPage, setCurrentPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
+  // eslint-disable-next-line
   const [pageLimit, setPageLimit] = useState(9);
   const [images, setImages] = useState([]);
 
@@ -52,6 +53,7 @@ const Search = () => {
       setImages(response.data);
     };
     getImages(params);
+    // eslint-disable-next-line
   }, [
     params.order,
     params.breed_id,

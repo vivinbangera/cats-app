@@ -1,15 +1,25 @@
 import axios from 'axios';
 
-let config = {
-  headers: {
-    'x-api-key': process.env.REACT_APP_CAT_API_KEY,
-  },
+const getConfig = params => {
+  let config = {
+    headers: {
+      'x-api-key': process.env.REACT_APP_CAT_API_KEY,
+    },
+  };
+  if (params) {
+    config.params = params;
+  }
+  return config;
+};
+
+const getData = (url, config) => {
+  return axios.get(url, config);
 };
 
 export const getRandomCat = async () => {
-  let { data } = await axios.get(
+  let { data } = await getData(
     'https://api.thecatapi.com/v1/images/search',
-    config
+    getConfig()
   );
 
   if (data && data.length) {
@@ -18,7 +28,10 @@ export const getRandomCat = async () => {
 };
 
 export const fetchBreeds = async () => {
-  let { data } = await axios.get('https://api.thecatapi.com/v1/breeds', config);
+  let { data } = await getData(
+    'https://api.thecatapi.com/v1/breeds',
+    getConfig()
+  );
 
   return data.map(breed => {
     return {
@@ -32,27 +45,25 @@ export const fetchSpecificBreed = async id => {
   if (!id) {
     return null;
   }
-  let { data } = await axios.get(
-    `https://api.thecatapi.com/v1/images/search?breed_ids=${id}`,
-    config
+  let { data } = await getData(
+    'https://api.thecatapi.com/v1/images/search',
+    getConfig({ breed_id: id })
   );
   return data[0];
 };
 
 export const getCategories = async () => {
-  let { data } = await axios.get(
+  let { data } = await getData(
     'https://api.thecatapi.com/v1/categories',
-    config
+    getConfig()
   );
   return data;
 };
 
 export const getCatSearchResults = async params => {
-  params && (config.params = params);
-
-  let Response = await axios.get(
+  let Response = await getData(
     'https://api.thecatapi.com/v1/images/search',
-    config
+    getConfig(params)
   );
   return Response;
 };

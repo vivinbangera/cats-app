@@ -9,7 +9,6 @@ const BreedItem = ({ id }) => {
     setIsLoading(true);
     const fetchSpecificCatBreed = async () => {
       const details = await fetchSpecificBreed(id);
-      console.log(details);
       setBreedDetails(details);
       setIsLoading(false);
     };
@@ -100,7 +99,11 @@ const BreedItem = ({ id }) => {
               <tr>
                 <td>Wikipedia</td>
                 <td>
-                  <a target="_blank" rel="noopener noreferrer" href={breedDetails.breeds[0].wikipedia_url}>
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={breedDetails.breeds[0].wikipedia_url}
+                  >
                     {breedDetails.breeds[0].name} wiki
                   </a>
                 </td>

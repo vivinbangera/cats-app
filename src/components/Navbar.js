@@ -5,7 +5,6 @@ import Logo from '../images/cat-logo.jpg';
 import './Navbar.css';
 
 const Navbar = ({ location }) => {
-  console.log(location);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const handleBurgerMenuToggle = event => {
     event.preventDefault();
