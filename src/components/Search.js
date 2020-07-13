@@ -4,6 +4,7 @@ import Pagination from './Pagination';
 import { getCategories, fetchBreeds, getCatSearchResults } from '../api';
 
 const Search = () => {
+  const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [categoryId, setCategoryId] = useState('');
   const [breeds, setBreeds] = useState([]);
@@ -32,6 +33,9 @@ const Search = () => {
     format: 'json',
     page: currentPage,
   };
+  // Stringify makes it easier to pass the object in the dependency array of useEffect.
+  //Parse it before passing it as a parameter.
+  params = JSON.stringify(params);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -47,20 +51,15 @@ const Search = () => {
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     const getImages = async params => {
-      const response = await getCatSearchResults(params);
+      const response = await getCatSearchResults(JSON.parse(params));
       setPageCount(response.headers['pagination-count']);
       setImages(response.data);
+      setLoading(false);
     };
     getImages(params);
-    // eslint-disable-next-line
-  }, [
-    params.order,
-    params.breed_id,
-    params.category_ids,
-    params.mime_types,
-    params.page,
-  ]);
+  }, [params]);
 
   const changePage = newPage => {
     setCurrentPage(newPage);
@@ -77,6 +76,8 @@ const Search = () => {
       {breed.name}
     </option>
   ));
+
+  //Loader color: #71c2cc
 
   return (
     <React.Fragment>
@@ -149,6 +150,7 @@ const Search = () => {
         </div>
       </div>
       <div className="search-results container">
+        {loading && <div className="container">Loading...</div>}
         {images.map(image => (
           <img
             src={image.url}
@@ -157,15 +159,22 @@ const Search = () => {
             className="search_result"
           />
         ))}
+        {images.length === 0 && !loading && (
+          <div className="container">
+            <h1 className="title">No Images Found</h1>
+          </div>
+        )}
       </div>
       <br />
       <div className="container">
-        <Pagination
-          pageCount={pageCount}
-          pageLimit={pageLimit}
-          currentPage={currentPage}
-          handleClick={changePage}
-        />
+        {parseInt(pageCount) !== 0 && (
+          <Pagination
+            pageCount={pageCount}
+            pageLimit={pageLimit}
+            currentPage={currentPage}
+            handleClick={changePage}
+          />
+        )}
       </div>
     </React.Fragment>
   );
